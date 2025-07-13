@@ -31,10 +31,29 @@ const CanvasArea = () => {
     contextRef.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
   };
 
+  const draw = (e) => {
+    if (!isDrawing.current) return;
+    contextRef.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    contextRef.current.stroke();
+  };
+
+  const stopDraw = () => {
+    isDrawing.current = false;
+    contextRef.current.closePath();
+    const data = canvasRef.current.toDataURL();
+    localStorage.setItem("geo-sketch", data);
+  };
+
   return (
     <div className="canvas-area">
       <h2>Sketch Here</h2>
-      <canvas ref={canvasRef} onMouseDown={startDraw} />
+      <canvas
+        ref={canvasRef}
+        onMouseDown={startDraw}
+        onMouseMove={draw}
+        onMouseUp={stopDraw}
+        onMouseLeave={stopDraw}
+      />
     </div>
   );
 };
