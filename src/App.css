@@ -1,7 +1,5 @@
 .App {
+  max-width: 800px;
+  margin: 0 auto;
   text-align: center;
-}
-
-.canvas-wrapper {
-  min-height: 450px;
 }

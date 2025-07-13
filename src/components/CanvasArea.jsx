@@ -44,6 +44,16 @@ const CanvasArea = () => {
     localStorage.setItem("geo-sketch", data);
   };
 
+  const clearCanvas = () => {
+    contextRef.current.clearRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    );
+    localStorage.removeItem("geo-sketch");
+  };
+
   return (
     <div className="canvas-area">
       <h2>Sketch Here</h2>
@@ -54,6 +64,9 @@ const CanvasArea = () => {
         onMouseUp={stopDraw}
         onMouseLeave={stopDraw}
       />
+      <button onClick={clearCanvas} className="clear-btn">
+        Clear Drawing
+      </button>
     </div>
   );
 };
