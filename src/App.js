@@ -2,10 +2,16 @@ import "./App.css";
 import React, { useState, useRef } from "react";
 import CanvasArea from "./components/CanvasArea";
 import LocationInfo from "./components/LocationInfo";
+import useIntersectionObserver from "./utils/useIntersectionObserver";
 
 function App() {
   const canvasRef = useRef();
-  const [showCanvas, setShowCanvas] = useState(true);
+  const [showCanvas, setShowCanvas] = useState(false);
+
+  useIntersectionObserver(canvasRef, () => {
+    setShowCanvas(true);
+  });
+
   return (
     <div className="App">
       <h1>GeoSketch</h1>
