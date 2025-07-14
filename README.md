@@ -48,6 +48,6 @@
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/geo-sketch.git
+git clone https://github.com/ajaykumar-21/Geo-Sketch.git
 cd geo-sketch
 ```
