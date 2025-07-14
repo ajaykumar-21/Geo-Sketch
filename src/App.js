@@ -5,9 +5,10 @@ import LocationInfo from "./components/LocationInfo";
 import useIntersectionObserver from "./utils/useIntersectionObserver";
 
 function App() {
-  const canvasRef = useRef();
-  const [showCanvas, setShowCanvas] = useState(false);
+  const canvasRef = useRef(); // Ref to the canvas container (used for intersection observer)
+  const [showCanvas, setShowCanvas] = useState(false); // State to toggle the canvas rendering once it's visible
 
+  // Lazy-load the canvas only when it becomes visible in viewport
   useIntersectionObserver(canvasRef, () => {
     setShowCanvas(true);
   });

@@ -1,22 +1,25 @@
 import React, { useEffect, useRef } from "react";
 
 const CanvasArea = () => {
-  const canvasRef = useRef(null);
-  const isDrawing = useRef(false);
-  const contextRef = useRef(null);
+  const canvasRef = useRef(null); // Ref for the <canvas> element
+  const isDrawing = useRef(false); // Tracks whether the user is currently drawing
+  const contextRef = useRef(null); // Stores the 2D canvas context
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    // Set canvas size
     canvas.width = 600;
     canvas.height = 400;
 
+    // Initialize 2D drawing context
     const ctx = canvas.getContext("2d");
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
-    ctx.strokeStyle = "#000";
+    ctx.strokeStyle = "#000"; // Black stroke color
 
     contextRef.current = ctx;
 
+    // If a saved drawing exists in localStorage, load it
     const saved = localStorage.getItem("geo-sketch");
     if (saved) {
       const img = new Image();
@@ -25,18 +28,21 @@ const CanvasArea = () => {
     }
   }, []);
 
+  // Start drawing when mouse is pressed down
   const startDraw = (e) => {
     isDrawing.current = true;
     contextRef.current.beginPath();
     contextRef.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
   };
 
+  // Continue drawing as mouse moves
   const draw = (e) => {
     if (!isDrawing.current) return;
     contextRef.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     contextRef.current.stroke();
   };
 
+  // Stop drawing when mouse is released or leaves canvas
   const stopDraw = () => {
     isDrawing.current = false;
     contextRef.current.closePath();
@@ -44,6 +50,7 @@ const CanvasArea = () => {
     localStorage.setItem("geo-sketch", data);
   };
 
+  // Clear the canvas and remove saved sketch from localStorage
   const clearCanvas = () => {
     contextRef.current.clearRect(
       0,
